@@ -1,0 +1,134 @@
+---
+title: "North Auto Prices Research"
+author: "Alejandro Alvarez"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: cosmo
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+
+
+```{r}
+
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+cars <- read_excel("final_complete_used_car_dataset_with_vehicle_type.xlsx")
+```
+# Introduction
+
+This project analyzes used vehicle pricing patterns across Honda, Toyota, and Volkswagen vehicles in the Northern California market.
+
+# Data Collection
+
+The dataset was manually collected from Craigslist listings and cleaned to remove outliers, mechanic specials, collector vehicles, and incomplete listings.
+
+# Exploratory Data Analysis {.tabset}
+
+```{r}
+glimpse(cars)
+summary(cars)
+```
+# Plot Mileage vs Brand
+```{r}
+ggplot(cars, aes(x = Mileage, y = Price, color = Brand)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "Mileage vs Price by Brand",
+    x = "Mileage",
+    y = "Price"
+  )
+```
+## The scatterplot shows a clear negative relationship between mileage and vehicle price, indicating that vehicles generally lose value as mileage increases. Toyota vehicles tend to maintain higher prices at higher mileage levels compared to Honda and Volkswagen, suggesting stronger resale value and market confidence. Volkswagen vehicles appear more concentrated in the lower price ranges, which may indicate faster depreciation. Truck models also appear among the highest-priced observations, even with relatively high mileage, showing the strength of the truck resale market.
+
+# Graph Price vs Mileage
+```{r}
+
+ggplot(cars, aes(x = Mileage, y = Price, color = Vehicle_Type)) +
+  geom_point(size = 3)
+```
+## The graph shows that vehicle prices generally decline as mileage increases across all vehicle types. Trucks consistently appear among the highest-priced vehicles, even at high mileage levels, suggesting strong demand and slower depreciation. SUVs also maintain relatively strong resale value compared to sedans. Hybrid vehicles appear concentrated in moderate mileage and price ranges, reflecting continued consumer demand for fuel-efficient vehicles. Sedans and hatchbacks are more concentrated in the lower-price ranges, indicating faster depreciation and greater market supply.
+
+
+#Vehicle Count by Brand
+
+
+```{r}
+ggplot(cars, aes(x = Brand, fill = Brand)) +
+  geom_bar() +
+  labs(
+    title = "Vehicle Count by Brand",
+    x = "Brand",
+    y = "Count"
+  )
+```
+
+
+
+# Price Distribution Histogram
+```{r}
+
+ggplot(cars, aes(x = Price)) +
+  geom_histogram(bins = 10) +
+  labs(
+    title = "Distribution of Vehicle Prices",
+    x = "Price",
+    y = "Count"
+  )
+```
+
+# Regression Analysis
+
+
+```{r}
+car1_model <- lm(Price ~ Mileage + Year, data = cars )
+summary(car1_model)
+```
+
+
+```{r}
+
+
+new_car <- data.frame(
+  Mileage = 120000,
+  Year = 2016
+)
+
+predict(car1_model, newdata = new_car)
+```
+
+```{r}
+model2 <- lm(
+  Price ~ Mileage + Year + Brand + Vehicle_Type,
+  data = cars
+)
+
+summary(model2)
+```
+
+```{r}
+new_car <- data.frame(
+  Mileage = 120000,
+  Year = 2016,
+  Brand = "Toyota",
+  Vehicle_Type = "Sedan"
+)
+
+predict(model2, newdata = new_car)
+```
+
