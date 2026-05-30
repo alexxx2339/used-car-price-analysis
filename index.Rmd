@@ -41,11 +41,13 @@ The dataset was manually collected from Craigslist listings and cleaned to remov
 
 # Exploratory Data Analysis {.tabset}
 
+## Dataset Overview
+
 ```{r}
 glimpse(cars)
 summary(cars)
 ```
-# Plot Mileage vs Brand
+## Plot Mileage vs Brand
 ```{r}
 p1 <- ggplot(cars, aes(x = Mileage, y = Price, color = Brand)) +
   geom_point(size = 3, alpha = 0.8) +
@@ -72,10 +74,9 @@ print(p1)
 
 
 
+The scatterplot shows a clear negative relationship between mileage and vehicle price, indicating that vehicles generally lose value as mileage increases. Toyota vehicles tend to maintain higher prices at higher mileage levels compared to Honda and Volkswagen, suggesting stronger resale value and market confidence. Volkswagen vehicles appear more concentrated in the lower price ranges, which may indicate faster depreciation. Truck models also appear among the highest-priced observations, even with relatively high mileage, showing the strength of the truck resale market.
 
-### The scatterplot shows a clear negative relationship between mileage and vehicle price, indicating that vehicles generally lose value as mileage increases. Toyota vehicles tend to maintain higher prices at higher mileage levels compared to Honda and Volkswagen, suggesting stronger resale value and market confidence. Volkswagen vehicles appear more concentrated in the lower price ranges, which may indicate faster depreciation. Truck models also appear among the highest-priced observations, even with relatively high mileage, showing the strength of the truck resale market.
-
-# Graph Price vs Mileage
+## Graph Price vs Mileage
 ```{r}
 
 p2 <- ggplot(cars, aes(x = Mileage, y = Price, color = Vehicle_Type)) +
@@ -98,12 +99,12 @@ ggsave(
 )
 ```
 
-### The graph shows that vehicle prices generally decline as mileage increases across all vehicle types. Trucks consistently appear among the highest-priced vehicles, even at high mileage levels, suggesting strong demand and slower depreciation. SUVs also maintain relatively strong resale value compared to sedans. Hybrid vehicles appear concentrated in moderate mileage and price ranges, reflecting continued consumer demand for fuel-efficient vehicles. Sedans and hatchbacks are more concentrated in the lower-price ranges, indicating faster depreciation and greater market supply.
+The graph shows that vehicle prices generally decline as mileage increases across all vehicle types. Trucks consistently appear among the highest-priced vehicles, even at high mileage levels, suggesting strong demand and slower depreciation. SUVs also maintain relatively strong resale value compared to sedans. Hybrid vehicles appear concentrated in moderate mileage and price ranges, reflecting continued consumer demand for fuel-efficient vehicles. Sedans and hatchbacks are more concentrated in the lower-price ranges, indicating faster depreciation and greater market supply.
 
 
 
 
-
+## Vehicle Count by Brand
 ```{r}
 ggplot(cars, aes(x = Brand, fill = Brand)) +
   geom_bar() +
@@ -114,12 +115,12 @@ ggplot(cars, aes(x = Brand, fill = Brand)) +
   )
 ```
 
-### Summary
+Summary
 
 The average price by brand helps compare resale strength across Honda, Toyota, and Volkswagen. Toyota appears to have stronger average resale value, likely influenced by high-demand models such as trucks, SUVs, and reliable sedans. Honda remains competitive, while Volkswagen appears lower on average.
 
 
-# Price Distribution Histogram
+## Price Distribution Histogram
 ```{r}
 
 ggplot(cars, aes(x = Price)) +
@@ -131,7 +132,7 @@ ggplot(cars, aes(x = Price)) +
   )
 ```
 
-## Summary
+Summary
 The histogram shows how vehicle prices are distributed across the dataset. Most vehicles are concentrated in the lower-to-middle price range, while a smaller number of higher-priced vehicles create a right-skewed distribution. These higher-priced vehicles are likely newer models, trucks, or SUVs.
 
 
@@ -140,11 +141,11 @@ The histogram shows how vehicle prices are distributed across the dataset. Most 
 ## Regression Analysis
 
 
-###
+
 To better understand the factors that influence used vehicle prices, a multiple linear regression model was estimated using vehicle mileage and model year as predictor variables. The goal is to determine how these characteristics affect resale value and evaluate the model's ability to explain price variation across the sample.
 
 ## Model Specification
-### 
+
 
 Price = β₀ + β₁(Mileage) + β₂(Year)
 
@@ -154,7 +155,7 @@ Price = β₀ + β₁(Mileage) + β₂(Year)
 car1_model <- lm(Price ~ Mileage + Year, data = cars )
 summary(car1_model)
 ```
-## Results Interpretation
+Results Interpretation
 
 The regression results indicate that mileage has a statistically significant negative effect on vehicle price, meaning vehicles with higher mileage generally sell for lower prices. Vehicle year has a statistically significant positive effect, suggesting newer vehicles command higher resale values.
 
@@ -176,13 +177,13 @@ new_car <- data.frame(
 
 predict(car1_model, newdata = new_car)
 ```
-### Predicted Price
+Predicted Price
 
 The model predicts a vehicle price of approximately $12,617.
 
 
 
-### Interpretation
+## Interpretation
 
 This prediction demonstrates how regression analysis can be used to estimate vehicle values based on observable characteristics. Such models can help buyers evaluate listings and assist sellers in establishing competitive prices.
 
@@ -192,11 +193,11 @@ This prediction demonstrates how regression analysis can be used to estimate veh
 
 A multiple linear regression model was estimated to examine how mileage, vehicle year, brand, and vehicle type influence used vehicle prices. By including multiple explanatory variables, the model provides a more comprehensive understanding of the factors affecting resale value.
 
-### Model Specification
+## Model Specification
 
 Price = f(Mileage, Year, Brand, Vehicle Type)
 
-### Purpose
+## Purpose
 
 The objective of this model is to identify which vehicle characteristics significantly affect price and to evaluate how well these variables explain variation in the used vehicle market.
 
@@ -208,7 +209,7 @@ model2 <- lm(
 
 summary(model2)
 ```
-## Results Interpretation
+Results Interpretation
 
 The regression model explains approximately 74% of the variation in vehicle prices (R² = 0.738), indicating strong explanatory power.
 
@@ -239,7 +240,7 @@ new_car <- data.frame(
 predict(model2, newdata = new_car)
 ```
 
-### Prediction Interpretation
+Prediction Interpretation
 
 The model predicts that a 2016 Toyota Sedan with 120,000 miles would have an estimated market value of approximately $13,173. This example demonstrates how regression analysis can be used to estimate vehicle prices based on key characteristics and support data-driven pricing decisions.
 
@@ -260,7 +261,7 @@ ggplot(cars, aes(x = Mileage, y = Price)) +
   theme_minimal()
 ```
 
-### Summary
+Summary
 
 The regression plot illustrates the negative relationship between mileage and vehicle price. As mileage increases, vehicle prices generally decrease, reflecting the effects of depreciation. The downward-sloping regression line confirms the statistical findings from the regression model and highlights mileage as an important predictor of resale value.
 
