@@ -226,7 +226,7 @@ Overall, the model demonstrates that depreciation and vehicle age are the primar
 
 ## Prediction Example
 
-Using the regression model, a vehicle with 120,000 miles and a model year of 2016 is predicted to have a market value of approximately $13,173.
+Using the regression model, a 2016 Toyota Sedan with 120,000 miles is predicted to have a market value of approximately $13,173.
 
 This example demonstrates how regression analysis can be used to estimate vehicle prices based on observable characteristics and support data-driven pricing decisions.
 
@@ -244,11 +244,9 @@ new_car <- data.frame(
 predict(model2, newdata = new_car)
 ```
 
-Prediction Interpretation
-
-The model predicts that a 2016 Toyota Sedan with 120,000 miles would have an estimated market value of approximately $13,173. This example demonstrates how regression analysis can be used to estimate vehicle prices based on key characteristics and support data-driven pricing decisions.
 
 
+## Regression Plot 
 ```{r}
 
 library(scales)
@@ -265,7 +263,7 @@ ggplot(cars, aes(x = Mileage, y = Price)) +
   theme_minimal()
 ```
 
-Summary
+Regression Analysis
 
 The regression plot illustrates the negative relationship between mileage and vehicle price. As mileage increases, vehicle prices generally decrease, reflecting the effects of depreciation. The downward-sloping regression line confirms the statistical findings from the regression model and highlights mileage as an important predictor of resale value.
 
