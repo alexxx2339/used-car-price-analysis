@@ -31,6 +31,11 @@ library(ggplot2)
 ```{r}
 cars <- read_excel("C:/Users/Alexx/OneDrive/Desktop/Repo/used-car-price-analysis/data/final_complete_used_car_dataset_with_vehicle_type.xlsx")
 ```
+
+# Abstract
+
+This study examines factors affecting used vehicle prices in Northern California using a dataset of 61 Craigslist vehicle listings. Exploratory data analysis and multiple regression modeling were used to evaluate the relationship between vehicle price, mileage, year, brand, and vehicle type. The results indicate that mileage has a significant negative effect on vehicle price, while newer vehicles tend to retain higher resale values. The final regression model explains approximately 74% of the variation in vehicle prices, suggesting that these factors are important predictors of used vehicle value. This project demonstrates the use of R for data cleaning, visualization, statistical modeling, and predictive analysis.
+
 # Introduction
 
 This project analyzes used vehicle pricing patterns across Honda, Toyota, and Volkswagen vehicles in the Northern California market.
@@ -43,11 +48,10 @@ The dataset was manually collected from Craigslist listings and cleaned to remov
 
 ## Dataset Overview
 
-```{r}
-glimpse(cars)
-summary(cars)
-```
-## Plot Mileage vs Brand
+This dataset includes 61 used vehicle listings collected from Craigslist in Northern California. The dataset includes vehicle price, mileage, model year, brand, vehicle type, fuel type, condition, and listing details.
+
+
+## Mileage vs Price by Brand
 ```{r}
 p1 <- ggplot(cars, aes(x = Mileage, y = Price, color = Brand)) +
   geom_point(size = 3, alpha = 0.8) +
